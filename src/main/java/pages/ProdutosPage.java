@@ -1,6 +1,7 @@
 package pages;
 
 import core.BasePage;
+import core.GeradorUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,9 +9,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ProdutoPage extends BasePage {
+public class ProdutosPage extends BasePage {
 
-    public ProdutoPage(WebDriver driver) {
+    public ProdutosPage(WebDriver driver) {
         super(driver);
     }
 
@@ -30,9 +31,8 @@ public class ProdutoPage extends BasePage {
     WebElement input_preco_venda;
 
     @FindBy(id = "unidade")
-    WebElement Select;
-    Select seleciona_unidade = new Select(Select);
-
+    WebElement select;
+   
     @FindBy(id = "estoque")
     WebElement input_estoque;
 
@@ -51,36 +51,37 @@ public class ProdutoPage extends BasePage {
     @FindBy(xpath = "//*[@id=\'modal-excluir\']/form/div[3]/button[2]")
     WebElement button_confirmar_exclusao;
 
-    public ProdutoPage setDescricao(String descricao) {
+    public ProdutosPage setDescricao(String descricao) {
         input_descricao.clear();
         input_descricao.sendKeys(descricao);
         return this;
     }
 
-    public ProdutoPage setPrecoCompra(String valor) {
+    public ProdutosPage setPrecoCompra(String valor) {
         input_preco_compra.clear();
         input_preco_compra.sendKeys(valor);
         return this;
     }
 
-    public ProdutoPage setPrecoVenda(String valor) {
+    public ProdutosPage setPrecoVenda(String valor) {
         input_preco_venda.clear();
         input_preco_venda.sendKeys(valor);
         return this;
     }
 
-    public ProdutoPage setUnidade(String opcao) {
-        seleciona_unidade.selectByValue(opcao);
+    public ProdutosPage setUnidade(String opcao) {
+        Select seleciona_unidade = new Select(select);
+        seleciona_unidade.selectByVisibleText(opcao);
         return this;
     }
 
-    public ProdutoPage setEstoque(String quantidade) {
+    public ProdutosPage setEstoque(String quantidade) {
         input_estoque.clear();
         input_estoque.sendKeys(quantidade);
         return this;
     }
 
-    public ProdutoPage setEstoqueMinimo(String quantidade) {
+    public ProdutosPage setEstoqueMinimo(String quantidade) {
         input_estoque_minimo.clear();
         input_estoque_minimo.sendKeys(quantidade);
         return this;
@@ -98,6 +99,26 @@ public class ProdutoPage extends BasePage {
 
     public void submeterAdicionarProduto() {
         button_submit.click();
+    }
+
+    public void adicionar() {
+        GeradorUtils gerador = new GeradorUtils();
+
+        String descricao = gerador.stringAleatoria(30);
+        String precoCompra = gerador.numericoAleatorio(5);
+        String precoVenda = gerador.numericoAleatorio(6);
+        String estoque = gerador.numericoAleatorio(3);
+        String estoqueMinimo = gerador.numericoAleatorio(2);
+
+        goToProdutoPage();
+        clicaAdicionarNovoProduto();
+        setDescricao(descricao);
+        setPrecoCompra(precoCompra);
+        setPrecoVenda(precoVenda);
+        setUnidade("Unidade");
+        setEstoque(estoque);
+        setEstoqueMinimo(estoqueMinimo);
+        submeterAdicionarProduto();
     }
 
     public String retornaTextoDaMensagem() {

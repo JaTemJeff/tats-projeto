@@ -1,9 +1,13 @@
 package core;
 
 public class AppSettings {
+    //Notebook
+    //public static String URL_SITE = "http://192.168.1.11/";
 
-    public static String URL_SITE = "http://192.168.1.11/";
-    public static String URL_DASHBOARD = "http://192.168.1.11/index.php/mapos";
+    //PC
+    public static String URL_SITE = "http://192.168.1.15/";
+    
+    public static String URL_DASHBOARD = URL_SITE + "index.php/mapos";
 
     public static String LOGIN = "admin@admin.com";
     public static String SENHA = "123456";
@@ -12,7 +16,7 @@ public class AppSettings {
     public static boolean FECHAR_BROWSER = true;
 
     //Escolhe em qual browser rodar
-    public static Browsers BROWSER = Browsers.CHROME;
+    public static Browsers BROWSER = Browsers.CHROME_HEADLESS;
 
     public enum Browsers {
         CHROME,
