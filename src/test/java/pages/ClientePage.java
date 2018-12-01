@@ -1,7 +1,6 @@
 package pages;
 
 import core.BasePage;
-import core.GeradorUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -145,37 +144,6 @@ public class ClientePage extends BasePage {
         button_submit.click();
     }
 
-    public void adicionar() {
-        GeradorUtils gerador = new GeradorUtils();
-
-        String nome = gerador.stringAleatoria(10);
-        String documento = gerador.gerarCPF();
-        String telefone = gerador.numericoAleatorio(11);
-        String celular = gerador.numericoAleatorio(11);
-        String email = gerador.alfanumericoAleatorio(10) + "@teste.com";
-        String cep = "86020330";
-        String numero = gerador.numericoAleatorio(3);
-        String rua = "Rua Sergipe";
-        String bairro = "Centro";
-        String cidade = "Londrina";
-        String estado = "Paraná";
-
-        goToClientePage();
-        clicaAdicionarNovoCliente();
-        setNome(nome);
-        setDocumento(documento);
-        setTelefone(telefone);
-        setCelular(celular);
-        setEmail(email);
-        setCep(cep);
-        setNumero(numero);
-        setRua(rua);
-        setBairro(bairro);
-        setCidade(cidade);
-        setEstado(estado);
-        submeterAdicionarCliente();
-    }
-
     public String retornaTextoDaMensagem() {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfAllElements(alert_mensagem));
@@ -190,11 +158,5 @@ public class ClientePage extends BasePage {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfAllElements(button_confirmar_exclusao));
         button_confirmar_exclusao.click();
-    }
-
-    public void excluir() {
-        goToClientePage();
-        clicaBtnExcluir();
-        confirmaExclusao();
     }
 }

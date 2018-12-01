@@ -54,10 +54,10 @@ public class LoginPage extends BasePage {
         button_acessar.click();
     }
 
-    public void logar() {
+    public void logar(String login, String senha) {
         goToHomePage();
-        setLogin(AppSettings.LOGIN);
-        setSenha(AppSettings.SENHA);
+        setLogin(login);
+        setSenha(senha);
         clicaLogar();
     }
 

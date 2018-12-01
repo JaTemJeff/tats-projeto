@@ -22,7 +22,9 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void LoginCorretoTest() {
-        loginPage.logar();//Efetua login com credenciais corretas 
+        
+        loginPage.logar(AppSettings.LOGIN, AppSettings.SENHA);
+        
         Assert.assertEquals(AppSettings.URL_DASHBOARD, loginPage.retornaURL());//Verifica se está na pagina inicial
         Assert.assertTrue(loginPage.retornaSeExibieMinhaConta());// Verifica se exibe menu "Minha Conta", oque significa que está logado
     }

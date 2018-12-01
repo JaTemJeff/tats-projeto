@@ -1,7 +1,6 @@
 package pages;
 
 import core.BasePage;
-import core.GeradorUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -73,21 +72,6 @@ public class ServicosPage extends BasePage {
         button_submit.click();
     }
 
-    public void adicionar() {
-        GeradorUtils gerador = new GeradorUtils();
-
-        String nome = gerador.stringAleatoria(10);
-        String preco = gerador.numericoAleatorio(5);
-        String descricao = gerador.stringAleatoria(30);
-
-        goToServicosPage();
-        clicaAdicionarNovoServico();
-        setNome(nome);
-        setPreco(preco);
-        setDescricao(descricao);
-        submeterAdicionarServico();
-    }
-
     public String retornaTextoDaMensagem() {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfAllElements(alert_mensagem));
@@ -104,9 +88,4 @@ public class ServicosPage extends BasePage {
         button_confirmar_exclusao.click();
     }
 
-    public void excluir() {
-        goToServicosPage();
-        clicaBtnExcluir();
-        confirmaExclusao();
-    }
 }

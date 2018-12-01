@@ -1,7 +1,6 @@
 package pages;
 
 import core.BasePage;
-import core.GeradorUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -101,26 +100,6 @@ public class ProdutosPage extends BasePage {
         button_submit.click();
     }
 
-    public void adicionar() {
-        GeradorUtils gerador = new GeradorUtils();
-
-        String descricao = gerador.stringAleatoria(30);
-        String precoCompra = gerador.numericoAleatorio(5);
-        String precoVenda = gerador.numericoAleatorio(6);
-        String estoque = gerador.numericoAleatorio(3);
-        String estoqueMinimo = gerador.numericoAleatorio(2);
-
-        goToProdutoPage();
-        clicaAdicionarNovoProduto();
-        setDescricao(descricao);
-        setPrecoCompra(precoCompra);
-        setPrecoVenda(precoVenda);
-        setUnidade("Unidade");
-        setEstoque(estoque);
-        setEstoqueMinimo(estoqueMinimo);
-        submeterAdicionarProduto();
-    }
-
     public String retornaTextoDaMensagem() {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfAllElements(alert_mensagem));
@@ -135,11 +114,5 @@ public class ProdutosPage extends BasePage {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfAllElements(button_confirmar_exclusao));
         button_confirmar_exclusao.click();
-    }
-
-    public void excluir() {
-        goToProdutoPage();
-        clicaBtnExcluir();
-        confirmaExclusao();
     }
 }

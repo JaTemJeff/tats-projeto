@@ -1,7 +1,6 @@
 package pages;
 
 import core.BasePage;
-import core.GeradorUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,10 +22,16 @@ public class OrdemDeServicoPage extends BasePage {
 
     @FindBy(id = "cliente")
     WebElement input_cliente;
+    
+    @FindBy(linkText = "jeff | Telefone: 1111111111")
+    WebElement autoComplete_cliente;
 
     @FindBy(id = "tecnico")
     WebElement input_tecnico_responsavel;
-
+    
+    @FindBy(linkText = "admin | Telefone: 0000-0000")
+    WebElement autoComplete_tecnico;
+    
     @FindBy(id = "status")
     WebElement select;
 
@@ -62,16 +67,28 @@ public class OrdemDeServicoPage extends BasePage {
 
     @FindBy(xpath = "//*[@id=\'modal-excluir\']/form/div[3]/button[2]")
     WebElement button_confirmar_exclusao;
-
+    
     public OrdemDeServicoPage setCliente(String cliente) {
         input_cliente.clear();
         input_cliente.sendKeys(cliente);
+        
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOf(autoComplete_cliente));
+        
+        autoComplete_cliente.click();
+        
         return this;
     }
 
     public OrdemDeServicoPage setTecnico(String tecnico) {
         input_tecnico_responsavel.clear();
         input_tecnico_responsavel.sendKeys(tecnico);
+        
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOf(autoComplete_tecnico));
+        
+        autoComplete_tecnico.click();
+        
         return this;
     }
 
@@ -137,35 +154,6 @@ public class OrdemDeServicoPage extends BasePage {
         button_submit.click();
     }
 
-    public void adicionar() {
-        GeradorUtils gerador = new GeradorUtils();
-
-        String cliente = "jeff";
-        String tecnico = "admin";
-        String status = "Aberto";
-        String data_inicial = "10/10/2018";
-        String data_final = "10/10/2019";
-        String garantia = gerador.numericoAleatorio(2);
-        String descricao = gerador.stringAleatoria(20);
-        String defeito = gerador.stringAleatoria(20);
-        String observacoes = gerador.stringAleatoria(20);
-        String laudo = gerador.stringAleatoria(20);
-
-        goToOrdemDeServicoPage();
-        clicaAdicionarNovaOrdemDeServico();
-        setCliente(cliente);
-        setTecnico(tecnico);
-        setStatus(status);
-        setDataInicial(data_inicial);
-        setDataFinal(data_final);
-        setGarantia(garantia);
-        setDescricaoProduto(descricao);
-        setDefeito(defeito);
-        setObeservacoes(observacoes);
-        setLaudo(laudo);
-        submeterAdicionarOrdemDeServico();
-    }
-
     public String retornaTextoDaMensagem() {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfAllElements(alert_mensagem));
@@ -180,11 +168,5 @@ public class OrdemDeServicoPage extends BasePage {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfAllElements(button_confirmar_exclusao));
         button_confirmar_exclusao.click();
-    }
-
-    public void excluir() {
-        goToOrdemDeServicoPage();
-        clicaBtnExcluir();
-        confirmaExclusao();
     }
 }
