@@ -13,9 +13,6 @@ public class ServicosPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@id=\'sidebar\']/ul/li[4]/a/span")
-    WebElement link_servicos;
-
     @FindBy(xpath = "//*[@id=\'content\']/div[2]/div/div/a")
     WebElement button_adicionar_servico;
 
@@ -58,18 +55,14 @@ public class ServicosPage extends BasePage {
         return this;
     }
 
-    public void goToServicosPage() {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
-        wait.until(ExpectedConditions.visibilityOfAllElements(link_servicos));
-        link_servicos.click();
-    }
-
-    public void clicaAdicionarNovoServico() {
+    public ServicosPage clicaAdicionarNovoServico() {
         button_adicionar_servico.click();
+        return this;
     }
 
-    public void submeterAdicionarServico() {
+    public ServicosPage submeterAdicionarServico() {
         button_submit.click();
+        return this;
     }
 
     public String retornaTextoDaMensagem() {
@@ -78,14 +71,16 @@ public class ServicosPage extends BasePage {
         return alert_mensagem.getText().trim();
     }
 
-    public void clicaBtnExcluir() {
+    public ServicosPage clicaBtnExcluir() {
         button_excluir.click();
+        return this;
     }
 
-    public void confirmaExclusao() {
+    public ServicosPage confirmaExclusao() {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfAllElements(button_confirmar_exclusao));
         button_confirmar_exclusao.click();
+        return this;
     }
 
 }

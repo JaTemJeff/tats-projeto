@@ -14,9 +14,6 @@ public class ProdutosPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@id=\'sidebar\']/ul/li[3]/a")
-    WebElement link_produtos;
-
     @FindBy(xpath = "//*[@id=\'content\']/div[2]/div/div/a")
     WebElement button_adicionar_produto;
 
@@ -86,18 +83,14 @@ public class ProdutosPage extends BasePage {
         return this;
     }
 
-    public void goToProdutoPage() {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
-        wait.until(ExpectedConditions.visibilityOfAllElements(link_produtos));
-        link_produtos.click();
-    }
-
-    public void clicaAdicionarNovoProduto() {
+    public ProdutosPage clicaAdicionarNovoProduto() {
         button_adicionar_produto.click();
+        return this;
     }
 
-    public void submeterAdicionarProduto() {
+    public ProdutosPage submeterAdicionarProduto() {
         button_submit.click();
+        return this;
     }
 
     public String retornaTextoDaMensagem() {
@@ -106,13 +99,15 @@ public class ProdutosPage extends BasePage {
         return alert_mensagem.getText().trim();
     }
 
-    public void clicaBtnExcluir() {
+    public ProdutosPage clicaBtnExcluir() {
         button_excluir.click();
+        return this;
     }
 
-    public void confirmaExclusao() {
+    public ProdutosPage confirmaExclusao() {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfAllElements(button_confirmar_exclusao));
         button_confirmar_exclusao.click();
+        return this;
     }
 }

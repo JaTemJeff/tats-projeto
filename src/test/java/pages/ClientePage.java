@@ -13,9 +13,6 @@ public class ClientePage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@id=\'sidebar\']/ul/li[2]/a/span")
-    WebElement link_cliente;
-
     @FindBy(xpath = "//*[@id=\'content\']/div[2]/div/div/a")
     WebElement button_adicionar_cliente;
 
@@ -130,18 +127,14 @@ public class ClientePage extends BasePage {
         return this;
     }
 
-    public void goToClientePage() {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
-        wait.until(ExpectedConditions.visibilityOfAllElements(link_cliente));
-        link_cliente.click();
-    }
-
-    public void clicaAdicionarNovoCliente() {
+    public ClientePage clicaAdicionarNovoCliente() {
         button_adicionar_cliente.click();
+        return this;
     }
 
-    public void submeterAdicionarCliente() {
+    public ClientePage submeterAdicionarCliente() {
         button_submit.click();
+        return this;
     }
 
     public String retornaTextoDaMensagem() {
@@ -150,13 +143,15 @@ public class ClientePage extends BasePage {
         return alert_mensagem.getText().trim();
     }
 
-    public void clicaBtnExcluir() {
+    public ClientePage clicaBtnExcluir() {
         button_excluir.click();
+        return this;
     }
 
-    public void confirmaExclusao() {
+    public ClientePage confirmaExclusao() {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfAllElements(button_confirmar_exclusao));
         button_confirmar_exclusao.click();
+        return this;
     }
 }

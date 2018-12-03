@@ -26,8 +26,9 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//*[@id=\'user-nav\']/ul/li[1]/a/span")
     WebElement link_minha_conta;
 
-    public void goToHomePage() {
+    public LoginPage goToLoginPage() {
         driver.get(AppSettings.URL_SITE);
+        return this;
     }
 
     public LoginPage setLogin(String login) {
@@ -50,15 +51,9 @@ public class LoginPage extends BasePage {
         return input_senha.getAttribute("value");
     }
 
-    public void clicaLogar() {
+    public HomePage clicaLogar() {
         button_acessar.click();
-    }
-
-    public void logar(String login, String senha) {
-        goToHomePage();
-        setLogin(login);
-        setSenha(senha);
-        clicaLogar();
+        return new HomePage(driver); 
     }
 
     public boolean retornaSeExibieMinhaConta() {

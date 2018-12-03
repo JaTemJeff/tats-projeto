@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import pages.ClientePage;
+import pages.HomePage;
 import pages.LoginPage;
 
 public class ClienteTest extends BaseTest {
@@ -16,20 +17,20 @@ public class ClienteTest extends BaseTest {
     WebDriver driver;
     ClientePage clientePage;
     LoginPage loginPage;
+    HomePage homePage;
     GeradorUtils gerador;
 
     @Before
     public void inicializa() {
         driver = WebDriverFactory.getDriver();
-        clientePage = new ClientePage(driver);
         loginPage = new LoginPage(driver);
         gerador = new GeradorUtils();
-        loginPage.logar(AppSettings.LOGIN, AppSettings.SENHA);
+        homePage = loginPage.goToLoginPage().setLogin(AppSettings.LOGIN).setSenha(AppSettings.SENHA).clicaLogar();
     }
 
     @Test
-    public void adicionarClienteTest() {
-        
+    public void CT01_adicionarClienteTest() {
+
         String nome = gerador.stringAleatoria(10);
         String documento = gerador.gerarCPF();
         String telefone = gerador.numericoAleatorio(11);
@@ -41,34 +42,35 @@ public class ClienteTest extends BaseTest {
         String bairro = "Centro";
         String cidade = "Londrina";
         String estado = "Paraná";
-        
-        clientePage.goToClientePage();
-        clientePage.clicaAdicionarNovoCliente();
-        clientePage.setNome(nome);
-        clientePage.setDocumento(documento);
-        clientePage.setTelefone(telefone);
-        clientePage.setCelular(celular);
-        clientePage.setEmail(email);
-        clientePage.setCep(cep);
-        clientePage.setNumero(numero);
-        clientePage.setRua(rua);
-        clientePage.setBairro(bairro);
-        clientePage.setCidade(cidade);
-        clientePage.setEstado(estado);
-        clientePage.submeterAdicionarCliente();
-        
+
+        clientePage = homePage
+                .goToClientePage()
+                .clicaAdicionarNovoCliente()
+                .setNome(nome)
+                .setDocumento(documento)
+                .setTelefone(telefone)
+                .setCelular(celular)
+                .setEmail(email)
+                .setCep(cep)
+                .setNumero(numero)
+                .setRua(rua)
+                .setBairro(bairro)
+                .setCidade(cidade)
+                .setEstado(estado)
+                .submeterAdicionarCliente();
+
         Assert.assertEquals("×\n"
                 + "Cliente adicionado com sucesso!", clientePage.retornaTextoDaMensagem());
     }
-    
+
     @Test
-    public void excluirClienteTest(){
-        
-        clientePage.goToClientePage();
-        clientePage.clicaBtnExcluir();
-        clientePage.confirmaExclusao();
-        
+    public void CT02_excluirClienteTest() {
+
+        clientePage = homePage.goToClientePage()
+                .clicaBtnExcluir()
+                .confirmaExclusao();
+
         Assert.assertEquals("×\n"
-                + "Cliente excluido com sucesso!", clientePage.retornaTextoDaMensagem());                          
+                + "Cliente excluido com sucesso!", clientePage.retornaTextoDaMensagem());
     }
 }

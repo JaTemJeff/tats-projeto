@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import pages.HomePage;
 import pages.LoginPage;
 import pages.OrdemDeServicoPage;
 
@@ -16,20 +17,20 @@ public class OrdemDeServicoTest extends BaseTest {
     WebDriver driver;
     OrdemDeServicoPage osPage;
     LoginPage loginPage;
+    HomePage homePage;
     GeradorUtils gerador;
 
     @Before
     public void inicializa() {
         driver = WebDriverFactory.getDriver();
-        osPage = new OrdemDeServicoPage(driver);
         loginPage = new LoginPage(driver);
         gerador = new GeradorUtils();
-        loginPage.logar(AppSettings.LOGIN, AppSettings.SENHA);
+        homePage = loginPage.goToLoginPage().setLogin(AppSettings.LOGIN).setSenha(AppSettings.SENHA).clicaLogar();
     }
 
     @Test
-    public void adicionarOrdemDeServicoTest() {
-        
+    public void CT07_adicionarOrdemDeServicoTest() {
+
         String cliente = "j";
         String tecnico = "admin";
         String status = "Aberto";
@@ -41,33 +42,32 @@ public class OrdemDeServicoTest extends BaseTest {
         String observacoes = gerador.stringAleatoria(20);
         String laudo = gerador.stringAleatoria(20);
 
-        osPage.goToOrdemDeServicoPage();
-        osPage.clicaAdicionarNovaOrdemDeServico();
-        osPage.setCliente(cliente);
-        osPage.setTecnico(tecnico);
-        osPage.setStatus(status);
-        osPage.setDataInicial(data_inicial);
-        osPage.setDataFinal(data_final);
-        osPage.setGarantia(garantia);
-        osPage.setDescricaoProduto(descricao);
-        osPage.setDefeito(defeito);
-        osPage.setObeservacoes(observacoes);
-        osPage.setLaudo(laudo);
-        osPage.submeterAdicionarOrdemDeServico();
-        
-        System.out.println(""+osPage.retornaTextoDaMensagem());
-        Assert.assertEquals("×\n" 
-                +"OS adicionada com sucesso, você pode adicionar produtos ou serviços a essa OS nas abas de "
+        osPage = homePage.goToOrdemDeServicoPage()
+                .clicaAdicionarNovaOrdemDeServico()
+                .setCliente(cliente)
+                .setTecnico(tecnico)
+                .setStatus(status)
+                .setDataInicial(data_inicial)
+                .setDataFinal(data_final)
+                .setGarantia(garantia)
+                .setDescricaoProduto(descricao)
+                .setDefeito(defeito)
+                .setObeservacoes(observacoes)
+                .setLaudo(laudo)
+                .submeterAdicionarOrdemDeServico();
+
+        Assert.assertEquals("×\n"
+                + "OS adicionada com sucesso, você pode adicionar produtos ou serviços a essa OS nas abas de "
                 + "\"Produtos\" e \"Serviços\"!", osPage.retornaTextoDaMensagem());
     }
 
     @Test
-    public void excluirOrdemDeServicoTest() {
-        
-        osPage.goToOrdemDeServicoPage();
-        osPage.clicaBtnExcluir();
-        osPage.confirmaExclusao();
-        
+    public void CT08_excluirOrdemDeServicoTest() {
+
+        osPage = homePage.goToOrdemDeServicoPage()
+                .clicaBtnExcluir()
+                .confirmaExclusao();
+
         Assert.assertEquals("×\n"
                 + "OS excluída com sucesso!", osPage.retornaTextoDaMensagem());
     }

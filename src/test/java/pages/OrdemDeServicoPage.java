@@ -14,9 +14,6 @@ public class OrdemDeServicoPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@id=\'sidebar\']/ul/li[5]/a")
-    WebElement link_ordem_de_servico;
-
     @FindBy(xpath = "//*[@id=\'content\']/div[2]/div/div/div[1]/form/div[1]/a")
     WebElement button_adicionar_ordem_de_servico;
 
@@ -140,18 +137,14 @@ public class OrdemDeServicoPage extends BasePage {
         return this;
     }
 
-    public void goToOrdemDeServicoPage() {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
-        wait.until(ExpectedConditions.visibilityOfAllElements(link_ordem_de_servico));
-        link_ordem_de_servico.click();
-    }
-
-    public void clicaAdicionarNovaOrdemDeServico() {
+    public OrdemDeServicoPage clicaAdicionarNovaOrdemDeServico() {
         button_adicionar_ordem_de_servico.click();
+        return this;
     }
 
-    public void submeterAdicionarOrdemDeServico() {
+    public OrdemDeServicoPage submeterAdicionarOrdemDeServico() {
         button_submit.click();
+        return this;
     }
 
     public String retornaTextoDaMensagem() {
@@ -160,13 +153,15 @@ public class OrdemDeServicoPage extends BasePage {
         return alert_mensagem.getText().trim();
     }
 
-    public void clicaBtnExcluir() {
+    public OrdemDeServicoPage clicaBtnExcluir() {
         button_excluir.click();
+        return this;
     }
 
-    public void confirmaExclusao() {
+    public OrdemDeServicoPage confirmaExclusao() {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfAllElements(button_confirmar_exclusao));
         button_confirmar_exclusao.click();
+        return this;
     }
 }
